@@ -3,16 +3,16 @@ export class User {
   private _id: string;
   private _name: string;
   private _email: string;
-  private _cpf: number;
-  private _telefone: number;
+  private _cpf: string;
+  private _telefone: string;
   private _password: string;
 
   constructor(
     id: string,
     name: string,
     email: string,
-    cpf: number,
-    telefone: number,
+    cpf: string,
+    telefone: string,
     password: string,
   ) {
     this._id = id;
@@ -32,16 +32,16 @@ export class User {
   get email(): string {
     return this._email;
   }
-  get cpf(): number {
+  get cpf(): string {
     return this._cpf;
   }
-  get telefone(): number {
+  get telefone(): string {
     return this._telefone;
   }
   get password(): string {
     return this._password;
   }
-  changeTelefone(telefone: number): void {
+  changeTelefone(telefone: string): void {
     this._telefone = telefone;
   }
   changeName(name: string): void {

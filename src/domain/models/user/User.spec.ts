@@ -7,8 +7,8 @@ describe('User tests', () => {
       uuid(),
       'User test',
       'test@test.com',
-      983283,
-      8957454587,
+      '12345678912',
+      '85999999999',
       '123456',
     );
 
@@ -20,21 +20,21 @@ describe('User tests', () => {
       uuid(),
       'User test',
       'test@test.com',
-      983283,
-      8957454587,
+      '12345678912',
+      '85999999999',
       '123456',
     );
 
-    user.changeTelefone(8957454588);
-    expect(user.telefone).toBe(8957454588);
+    user.changeTelefone('8957454588');
+    expect(user.telefone).toBe('8957454588');
   });
   it('changeEmail_whenUpdateEmail_returnSuccess', () => {
     const user = new User(
       uuid(),
       'User test',
       'test@test.com',
-      983283,
-      8957454587,
+      '12345678912',
+      '85999999999',
       '123456',
     );
 
@@ -46,8 +46,8 @@ describe('User tests', () => {
       uuid(),
       'User test',
       'test@test.com',
-      983283,
-      8957454587,
+      '12345678912',
+      '85999999999',
       '123456',
     );
 
@@ -59,8 +59,8 @@ describe('User tests', () => {
       uuid(),
       'User test',
       'test@test.com',
-      983283,
-      8957454587,
+      '12345678912',
+      '85999999999',
       '123456',
     );
     expect(user.name).toBe('User test');

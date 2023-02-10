@@ -4,11 +4,11 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
-  Post,
+  Post
 } from '@nestjs/common';
 import { InputCreateUserDto } from '../../../application/input/dto/user/InputCreateUserDto';
 import { UserServiceInputPort } from '../../../application/input/UserServiceInputPort';
-import { User } from '../../../domain/models/user/User';
+import { OutputCreateUserDto } from '../../../application/output/dto/OutputCreateUserDto';
 
 @Controller('users')
 export class UserController {
@@ -18,7 +18,7 @@ export class UserController {
   ) {}
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() body: InputCreateUserDto): Promise<User> {
+  async create(@Body() body: InputCreateUserDto): Promise<OutputCreateUserDto> {
     return await this.userServiceInputPort.create(body);
   }
 }
