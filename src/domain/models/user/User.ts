@@ -34,4 +34,13 @@ export class User {
   get telefone(): number {
     return this._telefone;
   }
+  changeTelefone(telefone: number): void {
+    this._telefone = telefone;
+  }
+  changeName(name: string): void {
+    this._name = name;
+  }
+  changeEmail(email: string): void {
+    this._email = email;
+  }
 }

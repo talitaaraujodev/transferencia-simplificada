@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { DomainModule } from './domain/domain.module';
+import { AdapterModule } from './adapter/adapter.module';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
-  imports: [DomainModule],
+  imports: [ApplicationModule, AdapterModule],
   controllers: [],
   providers: [],
 })
