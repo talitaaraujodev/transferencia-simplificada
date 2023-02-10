@@ -4,7 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
-  Post
+  Post,
 } from '@nestjs/common';
 import { InputCreateUserDto } from '../../../application/input/dto/user/InputCreateUserDto';
 import { UserServiceInputPort } from '../../../application/input/UserServiceInputPort';
