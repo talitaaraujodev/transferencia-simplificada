@@ -1,6 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('users')
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+@Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -16,7 +15,7 @@ export class UserEntity {
   password: string;
 
   constructor(
-    id: string | null,
+    id: string,
     name: string,
     email: string,
     cpf: string,

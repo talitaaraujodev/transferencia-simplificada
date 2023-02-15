@@ -9,7 +9,7 @@ import { UserEntity } from './entities/UserEntitity';
 export class UserPersistenceAdapter implements UserPersistence {
   constructor(
     @InjectRepository(UserEntity)
-    public readonly userRepository: Repository<User>,
+    public readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async create(user: User): Promise<User> {
@@ -38,13 +38,17 @@ export class UserPersistenceAdapter implements UserPersistence {
   async findAll(): Promise<User[]> {
     return Object.assign(await this.userRepository.find()) as User[];
   }
-  async findOne(id: string): Promise<User> {
+  async findOne(id: string): Promise<UserEntity> {
     return await this.userRepository.findOne({ where: { id } });
   }
-  async findByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { email } });
+  async findByEmail(email: string): Promise<UserEntity> {
+    return await this.userRepository.findOne({
+      where: { email },
+    });
   }
-  async findByCpf(cpf: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { cpf } });
+  async findByCpf(cpf: string): Promise<UserEntity> {
+    return await this.userRepository.findOne({
+      where: { cpf },
+    });
   }
 }

@@ -13,8 +13,20 @@ export class UserService implements UserServiceInputPort {
   ) {}
 
   async create(user: User): Promise<OutputCreateUserDto> {
-    await this.verifyExistsEmail(user.email);
-    await this.verifyExistsCpf(user.cpf);
+    const emailExist = await this.userRepository.findByEmail(user.email);
+    const cpfExists = await this.userRepository.findByCpf(user.cpf);
+    if (emailExist) {
+      throw new HttpException(
+        'Usuário já existente por E-mail',
+        HttpStatus.CONFLICT,
+      );
+    }
+    if (cpfExists) {
+      throw new HttpException(
+        'Usuário já existente por Cpf',
+        HttpStatus.CONFLICT,
+      );
+    }
     const userCreated = new User(
       uuid(),
       user.name,
@@ -39,26 +51,13 @@ export class UserService implements UserServiceInputPort {
     if (!userFound) {
       throw new HttpException('Usuário não encontrado', HttpStatus.CONFLICT);
     }
-    return userFound;
-  }
-  async verifyExistsEmail(email: string): Promise<User> {
-    const userFound = await this.userRepository.findByEmail(email);
-    if (userFound) {
-      throw new HttpException(
-        'Usuário já existente existente por e-mail',
-        HttpStatus.CONFLICT,
-      );
-    }
-    return userFound;
-  }
-  async verifyExistsCpf(cpf: string): Promise<User> {
-    const userFound = await this.userRepository.findByCpf(cpf);
-    if (userFound) {
-      throw new HttpException(
-        'Usuário já existente por Cpf',
-        HttpStatus.CONFLICT,
-      );
-    }
-    return userFound;
+    return new User(
+      userFound.id,
+      userFound.name,
+      userFound.email,
+      userFound.cpf,
+      userFound.telefone,
+      userFound.password,
+    );
   }
 }
