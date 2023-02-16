@@ -1,7 +1,9 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { TransactionEntity } from './TransactionEntity';
+import { WalletEntity } from './WalletEntity';
 @Entity({ name: 'users' })
 export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
   @Column()
   name: string;
@@ -13,6 +15,15 @@ export class UserEntity {
   telefone: string;
   @Column()
   password: string;
+  @OneToMany(() => WalletEntity, (wallets) => wallets.user)
+  wallets: WalletEntity[];
+  @OneToMany(
+    () => TransactionEntity,
+    (transactions) => transactions.userAddressee,
+  )
+  transactionsUserAddressee: TransactionEntity[];
+  @OneToMany(() => TransactionEntity, (transactions) => transactions.userOrigin)
+  transactionsUserOrigin: TransactionEntity[];
 
   constructor(
     id: string,

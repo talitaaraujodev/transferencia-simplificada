@@ -3,7 +3,7 @@ config();
 
 export default {
   serverPort: Number(process.env.SERVER_PORT) || 8003,
-  dbName: process.env.MYSQL_DATABASE || 'goBank',
+  dbName: process.env.MYSQL_DATABASE || 'transferencia_simplificada',
   dbHost: process.env.MYSQL_HOST || 'localhost',
   dbPort: Number(process.env.MYSQL_PORT) || 3306,
   dbUser: process.env.MYSQL_USER || 'root',

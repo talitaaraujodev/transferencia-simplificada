@@ -1,8 +1,8 @@
 {
-  "name": "go-bank-api",
+  "name": "transferencia-simplificada-api",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Api com intuito de criar carteira digital e fazer transações entre ambas carteiras",
+  "author": "Talita Araujo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -38,6 +38,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "typeorm": "^0.3.12",
+    "typeorm-model-generator": "^0.4.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
