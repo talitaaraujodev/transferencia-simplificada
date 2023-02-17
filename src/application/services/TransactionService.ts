@@ -10,11 +10,11 @@ import { WalletPersistence } from '../output/WalletPersistenceOutputPort';
 export class TransactionService implements TransactionServiceInputPort {
   constructor(
     @Inject('TransactionPersistence')
-    private readonly transactionRepository: TransactionPersistence,
+    private readonly transactionPersistence: TransactionPersistence,
     @Inject('WalletPersistence')
-    private readonly walletRepository: WalletPersistence,
+    private readonly walletPersistence: WalletPersistence,
     @Inject('UserPersistence')
-    private readonly userRepository: UserPersistence,
+    private readonly userPersistence: UserPersistence,
   ) {}
   async create(transaction: InputCreateTransactionDto): Promise<Transaction> {
     const usersFieldsExists = await this.validateFieldsUserOriginAndAddressee(
@@ -48,7 +48,7 @@ export class TransactionService implements TransactionServiceInputPort {
         HttpStatus.CONFLICT,
       );
     }
-    return await this.transactionRepository.save(
+    return await this.transactionPersistence.save(
       new Transaction(
         uuid(),
         transaction.value,
@@ -60,7 +60,7 @@ export class TransactionService implements TransactionServiceInputPort {
     );
   }
   async findOne(id: string): Promise<Transaction> {
-    const transactionFound = await this.transactionRepository.findOne(id);
+    const transactionFound = await this.transactionPersistence.findOne(id);
     if (!transactionFound) {
       throw new HttpException(
         'Transaction não encontrado',
@@ -80,8 +80,8 @@ export class TransactionService implements TransactionServiceInputPort {
     userOrigin: string,
     userAddressee: string,
   ): Promise<boolean> {
-    const userOriginExists = await this.userRepository.findOne(userOrigin);
-    const userAddresseeExists = await this.userRepository.findOne(
+    const userOriginExists = await this.userPersistence.findOne(userOrigin);
+    const userAddresseeExists = await this.userPersistence.findOne(
       userAddressee,
     );
 
@@ -94,10 +94,10 @@ export class TransactionService implements TransactionServiceInputPort {
     walletOrigin: string,
     walletAddressee: string,
   ): Promise<boolean> {
-    const walletOriginExists = await this.walletRepository.findOne(
+    const walletOriginExists = await this.walletPersistence.findOne(
       walletOrigin,
     );
-    const walletAddresseeExists = await this.walletRepository.findOne(
+    const walletAddresseeExists = await this.walletPersistence.findOne(
       walletAddressee,
     );
 
@@ -107,7 +107,7 @@ export class TransactionService implements TransactionServiceInputPort {
     return true;
   }
   async checkIfBalanceEnough(id: string, value: number): Promise<boolean> {
-    const wallet = await this.walletRepository.findOne(id);
+    const wallet = await this.walletPersistence.findOne(id);
 
     if (wallet.balance < value) {
       false;

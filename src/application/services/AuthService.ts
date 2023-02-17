@@ -11,12 +11,12 @@ import { UserPersistence } from './../output/UserPersistenceOutputPort';
 export class AuthService implements AuthServiceInputPort {
   constructor(
     @Inject('UserPersistence')
-    private readonly userRepository: UserPersistence,
+    private readonly userPersistence: UserPersistence,
   ) {}
   async login(
     data: InputAuthUserDto,
   ): Promise<OutputAuthUserDto | HttpException> {
-    const user = await this.userRepository.findByEmail(data.email);
+    const user = await this.userPersistence.findByEmail(data.email);
     if (user) {
       const isPasswordValid = compareSync(data.password, user.password);
       if (isPasswordValid) {

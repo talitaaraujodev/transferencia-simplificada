@@ -9,12 +9,12 @@ import { UserPersistence } from './../output/UserPersistenceOutputPort';
 export class UserService implements UserServiceInputPort {
   constructor(
     @Inject('UserPersistence')
-    private readonly userRepository: UserPersistence,
+    private readonly userPersistence: UserPersistence,
   ) {}
 
   async create(user: User): Promise<OutputCreateUserDto> {
-    const emailExist = await this.userRepository.findByEmail(user.email);
-    const cpfExists = await this.userRepository.findByCpf(user.cpf);
+    const emailExist = await this.userPersistence.findByEmail(user.email);
+    const cpfExists = await this.userPersistence.findByCpf(user.cpf);
     if (emailExist) {
       throw new HttpException(
         'Usuário já existente por E-mail',
@@ -37,7 +37,7 @@ export class UserService implements UserServiceInputPort {
     );
     await userCreated.encryptPassword(user.password);
 
-    const userSaved = await this.userRepository.create(userCreated);
+    const userSaved = await this.userPersistence.create(userCreated);
     return {
       id: userSaved.id,
       name: userSaved.name,
@@ -47,7 +47,7 @@ export class UserService implements UserServiceInputPort {
     };
   }
   async findOne(id: string): Promise<User> {
-    const userFound = await this.userRepository.findOne(id);
+    const userFound = await this.userPersistence.findOne(id);
     if (!userFound) {
       throw new HttpException('Usuário não encontrado', HttpStatus.CONFLICT);
     }

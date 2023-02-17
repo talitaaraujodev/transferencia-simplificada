@@ -9,21 +9,21 @@ import { UserPersistence } from '../output/UserPersistenceOutputPort';
 export class WalletService implements WalletServiceInputPort {
   constructor(
     @Inject('WalletPersistence')
-    private readonly walletRepository: WalletPersistence,
+    private readonly walletPersistence: WalletPersistence,
     @Inject('UserPersistence')
-    private readonly userRepository: UserPersistence,
+    private readonly userPersistence: UserPersistence,
   ) {}
 
   async create(wallet: InputCreateWalletDto): Promise<Wallet> {
-    const userExists = await this.userRepository.findOne(wallet.userId);
+    const userExists = await this.userPersistence.findOne(wallet.userId);
     if (!userExists) {
       throw new HttpException('Usuário não encontrado', HttpStatus.CONFLICT);
     }
     const walletCreated = new Wallet(uuid(), wallet.balance, wallet.userId);
-    return await this.walletRepository.save(walletCreated);
+    return await this.walletPersistence.save(walletCreated);
   }
   async findOne(id: string): Promise<Wallet> {
-    const walletFound = await this.walletRepository.findOne(id);
+    const walletFound = await this.walletPersistence.findOne(id);
     console.log(walletFound);
     if (!walletFound) {
       throw new HttpException('Wallet não encontrado', HttpStatus.CONFLICT);
