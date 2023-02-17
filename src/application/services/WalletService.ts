@@ -13,16 +13,18 @@ export class WalletService implements WalletServiceInputPort {
     @Inject('UserPersistence')
     private readonly userRepository: UserPersistence,
   ) {}
+
   async create(wallet: InputCreateWalletDto): Promise<Wallet> {
     const userExists = await this.userRepository.findOne(wallet.userId);
     if (!userExists) {
       throw new HttpException('Usuário não encontrado', HttpStatus.CONFLICT);
     }
     const walletCreated = new Wallet(uuid(), wallet.balance, wallet.userId);
-    return await this.walletRepository.create(walletCreated);
+    return await this.walletRepository.save(walletCreated);
   }
   async findOne(id: string): Promise<Wallet> {
     const walletFound = await this.walletRepository.findOne(id);
+    console.log(walletFound);
     if (!walletFound) {
       throw new HttpException('Wallet não encontrado', HttpStatus.CONFLICT);
     }

@@ -1,3 +1,4 @@
+import { HttpException } from '@nestjs/common/exceptions';
 import { Wallet } from '../../domain/models/wallet/Wallet';
 import { InputCreateWalletDto } from './dto/wallet/InputCreateWalletDto';
 

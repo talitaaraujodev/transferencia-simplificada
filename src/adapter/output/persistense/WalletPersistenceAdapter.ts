@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Wallet } from 'src/domain/models/wallet/Wallet';
+import { Wallet } from '../../../domain/models/wallet/Wallet';
 import { Repository } from 'typeorm';
 import { WalletPersistence } from '../../../application/output/WalletPersistenceOutputPort';
 import { WalletEntity } from './entities/WalletEntity';
@@ -10,7 +10,7 @@ export class WalletPersistenceAdapter implements WalletPersistence {
     public readonly walletRepository: Repository<WalletEntity>,
   ) {}
 
-  async create(wallet: Wallet): Promise<Wallet> {
+  async save(wallet: Wallet): Promise<Wallet> {
     const walletEntitySaved = await this.walletRepository.save({
       id: wallet.id,
       balance: wallet.balance,
@@ -25,7 +25,7 @@ export class WalletPersistenceAdapter implements WalletPersistence {
   }
   async findOne(id: string): Promise<WalletEntity> {
     return await this.walletRepository.findOne({
-      where: { id },
+      where: { id: id },
       relations: ['user'],
     });
   }

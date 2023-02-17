@@ -1,16 +1,13 @@
 import { Module } from '@nestjs/common';
 import { RequestMethod } from '@nestjs/common/enums';
 import { MiddlewareConsumer } from '@nestjs/common/interfaces';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdapterModule } from './adapter/adapter.module';
 import { ApplicationModule } from './application/application.module';
 import { AuthMiddleware } from './config/middlewares/AuthMiddleware';
 import { AppDataSource } from './config/ormConfig';
-
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot(AppDataSource.options),
     ApplicationModule,
     AdapterModule,

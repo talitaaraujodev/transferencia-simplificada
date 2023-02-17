@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { compareSync } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
-import envConfig from 'src/config/envConfig';
+import envConfig from '../../config/envConfig';
 import { InputAuthUserDto } from '../input/dto/user/InputAuthUserDto';
 import { OutputAuthUserDto } from '../output/dto/OutputAuthUserDto';
 import { AuthServiceInputPort } from './../input/AuthServiceInputPort';

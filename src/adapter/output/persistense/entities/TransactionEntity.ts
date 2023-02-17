@@ -12,14 +12,14 @@ export class TransactionEntity {
     onDelete: 'CASCADE',
     onUpdate: 'NO ACTION',
   })
-  @JoinColumn([{ name: 'userOrigin', referencedColumnName: 'id' }])
+  @JoinColumn({ name: 'userOrigin', referencedColumnName: 'id' })
   userOrigin: UserEntity;
 
   @ManyToOne(() => UserEntity, (users) => users.transactionsUserAddressee, {
     onDelete: 'CASCADE',
     onUpdate: 'NO ACTION',
   })
-  @JoinColumn([{ name: 'userAddressee', referencedColumnName: 'id' }])
+  @JoinColumn({ name: 'userAddressee', referencedColumnName: 'id' })
   userAddressee: UserEntity;
 
   @ManyToOne(
@@ -30,7 +30,7 @@ export class TransactionEntity {
       onUpdate: 'NO ACTION',
     },
   )
-  @JoinColumn([{ name: 'walletOrigin', referencedColumnName: 'id' }])
+  @JoinColumn({ name: 'walletOrigin', referencedColumnName: 'id' })
   walletOrigin: WalletEntity;
 
   @ManyToOne(
@@ -41,6 +41,6 @@ export class TransactionEntity {
       onUpdate: 'NO ACTION',
     },
   )
-  @JoinColumn([{ name: 'walletAddressee', referencedColumnName: 'id' }])
+  @JoinColumn({ name: 'walletAddressee', referencedColumnName: 'id' })
   walletAddressee: WalletEntity;
 }

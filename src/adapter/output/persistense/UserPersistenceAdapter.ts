@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/domain/models/user/User';
+import { User } from '../../../domain/models/user/User';
 import { Repository } from 'typeorm';
 import { UserPersistence } from './../../../application/output/UserPersistenceOutputPort';
 import { UserEntity } from './entities/UserEntitity';
@@ -39,7 +39,10 @@ export class UserPersistenceAdapter implements UserPersistence {
     return Object.assign(await this.userRepository.find()) as User[];
   }
   async findOne(id: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({
+      where: { id },
+      relations: ['wallets'],
+    });
   }
   async findByEmail(email: string): Promise<UserEntity> {
     return await this.userRepository.findOne({

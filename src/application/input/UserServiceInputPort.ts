@@ -1,4 +1,4 @@
-import { User } from 'src/domain/models/user/User';
+import { User } from '../../domain/models/user/User';
 import { OutputCreateUserDto } from '../output/dto/OutputCreateUserDto';
 import { InputCreateUserDto } from './dto/user/InputCreateUserDto';
 
