@@ -5,10 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdapterModule } from './adapter/adapter.module';
 import { ApplicationModule } from './application/application.module';
 import { AuthMiddleware } from './config/middlewares/AuthMiddleware';
-import { AppDataSource } from './config/ormConfig';
+import { appDataSource } from './config/ormConfig';
 @Module({
   imports: [
-    TypeOrmModule.forRoot(AppDataSource.options),
+    TypeOrmModule.forRoot(appDataSource.options),
     ApplicationModule,
     AdapterModule,
   ],

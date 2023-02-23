@@ -108,7 +108,12 @@ export class TransactionService implements TransactionServiceInputPort {
   }
   async checkIfBalanceEnough(id: string, value: number): Promise<boolean> {
     const wallet = await this.walletPersistence.findOne(id);
-
+    if (!wallet) {
+      throw new HttpException(
+        'Wallet de origem não encontrado',
+        HttpStatus.CONFLICT,
+      );
+    }
     if (wallet.balance < value) {
       false;
     }

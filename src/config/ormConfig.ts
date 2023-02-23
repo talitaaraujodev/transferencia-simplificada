@@ -7,7 +7,7 @@ import envConfig from './envConfig';
 import { CreateTransactions1676481839518 } from './database/migrations/1676481839518-CreateTransactions';
 import { TransactionEntity } from '..//adapter/output/persistense/entities/TransactionEntity';
 
-export const AppDataSource = new DataSource({
+export const appDataSource = new DataSource({
   type: 'mysql',
   host: envConfig.dbHost,
   port: envConfig.dbPort,
@@ -23,3 +23,5 @@ export const AppDataSource = new DataSource({
     CreateTransactions1676481839518,
   ],
 });
+
+appDataSource.initialize();
