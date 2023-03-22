@@ -29,4 +29,11 @@ export class WalletPersistenceAdapter implements WalletPersistence {
       relations: ['user'],
     });
   }
+  async findAll(): Promise<Wallet[]> {
+    return Object.assign(
+      await this.walletRepository.find({
+        relations: ['user'],
+      }),
+    ) as Wallet[];
+  }
 }

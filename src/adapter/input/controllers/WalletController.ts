@@ -31,4 +31,9 @@ export class WalletController {
   ): Promise<Wallet> {
     return await this.walletServiceInputPort.findOne(id);
   }
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async findAll(): Promise<Wallet[]> {
+    return await this.walletServiceInputPort.findAll();
+  }
 }

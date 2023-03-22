@@ -8,6 +8,7 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
+import { OutputListUserDto } from 'src/application/output/dto/OutputListUserDto';
 import { InputCreateUserDto } from '../../../application/input/dto/user/InputCreateUserDto';
 import { UserServiceInputPort } from '../../../application/input/UserServiceInputPort';
 import { OutputCreateUserDto } from '../../../application/output/dto/OutputCreateUserDto';
@@ -31,5 +32,10 @@ export class UserController {
     id: string,
   ): Promise<User> {
     return await this.userServiceInputPort.findOne(id);
+  }
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async findAll(): Promise<OutputListUserDto[]> {
+    return await this.userServiceInputPort.findAll();
   }
 }

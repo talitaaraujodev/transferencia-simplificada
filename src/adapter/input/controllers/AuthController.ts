@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Header,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -18,7 +19,7 @@ export class AuthController {
     private readonly authServiceInputPort: AuthServiceInputPort,
   ) {}
   @Post()
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   async login(
     @Body() body: InputAuthUserDto,
   ): Promise<OutputAuthUserDto | HttpException> {

@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import { User } from '../../domain/models/user/User';
 import { UserServiceInputPort } from '../input/UserServiceInputPort';
 import { OutputCreateUserDto } from '../output/dto/OutputCreateUserDto';
+import { OutputListUserDto } from '../output/dto/OutputListUserDto';
 import { UserPersistence } from './../output/UserPersistenceOutputPort';
 
 @Injectable()
@@ -11,19 +12,29 @@ export class UserService implements UserServiceInputPort {
     @Inject('UserPersistence')
     private readonly userPersistence: UserPersistence,
   ) {}
+  async findAll(): Promise<OutputListUserDto[]> {
+    const users: User[] = await this.userPersistence.findAll();
+    return users.map((user) => ({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      cpf: user.cpf,
+      telefone: user.telefone,
+    }));
+  }
 
   async create(user: User): Promise<OutputCreateUserDto> {
     const emailExist = await this.userPersistence.findByEmail(user.email);
     const cpfExists = await this.userPersistence.findByCpf(user.cpf);
     if (emailExist) {
       throw new HttpException(
-        'Usuário já existente por E-mail',
+        'Usuário já existente por E-mail.',
         HttpStatus.CONFLICT,
       );
     }
     if (cpfExists) {
       throw new HttpException(
-        'Usuário já existente por Cpf',
+        'Usuário já existente por Cpf.',
         HttpStatus.CONFLICT,
       );
     }
@@ -49,7 +60,7 @@ export class UserService implements UserServiceInputPort {
   async findOne(id: string): Promise<User> {
     const userFound = await this.userPersistence.findOne(id);
     if (!userFound) {
-      throw new HttpException('Usuário não encontrado', HttpStatus.CONFLICT);
+      throw new HttpException('Usuário não encontrado.', HttpStatus.CONFLICT);
     }
     return new User(
       userFound.id,

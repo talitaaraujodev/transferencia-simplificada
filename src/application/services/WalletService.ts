@@ -22,6 +22,9 @@ export class WalletService implements WalletServiceInputPort {
     const walletCreated = new Wallet(uuid(), wallet.balance, wallet.userId);
     return await this.walletPersistence.save(walletCreated);
   }
+  async findAll(): Promise<Wallet[]> {
+    return this.walletPersistence.findAll();
+  }
   async findOne(id: string): Promise<Wallet> {
     const walletFound = await this.walletPersistence.findOne(id);
     console.log(walletFound);
